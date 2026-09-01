@@ -4,8 +4,6 @@
 
 Desenvolvido por Gustavo Ribeiro Kremer, doutorando em Ciência da Computação.
 
-**Nota de desenvolvimento:** este projeto foi criado com assistência do [Claude Code](https://claude.ai/code) (Anthropic).
-
 ---
 
 ## Tecnologia
@@ -37,7 +35,7 @@ A IA usa Minimax com poda alpha-beta em três níveis de dificuldade (fácil, m�
 
 ---
 
-**Demo:** [grkremer.github.io/21_jogos_tabuleiro](https://grkremer.github.io/21_jogos_tabuleiro)
+**Demo:** [grkremer.github.io/21_jogos_de_tabuleiro](https://grkremer.github.io/21_jogos_de_tabuleiro)
 
 ---
 
@@ -58,7 +56,7 @@ Se você usar este projeto em trabalhos acadêmicos (artigos, teses, relatórios
   author       = {Gustavo Ribeiro Kremer},
   title        = {{21 Jogos Lógicos no Mesmo Tabuleiro}: Webapp Interativo},
   year         = {2025},
-  url          = {https://github.com/grkremer/21_jogos_tabuleiro},
+  url          = {https://github.com/grkremer/21_jogos_de_tabuleiro},
   note         = {Baseado no livro de Renato P. Ribas (CMS/Metamorfose, 2025, ISBN 978-65-6144-054-7)},
 }
 ```
