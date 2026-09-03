@@ -143,6 +143,45 @@
     </div>
   </div>
 
+  <!-- MODAL: Settings -->
+  <div class="modal-overlay" id="modal-settings">
+    <div class="modal-card modal-settings-card">
+      <span class="modal-icon">⚙️</span>
+      <h2 class="modal-title">Configurações</h2>
+
+      <div class="settings-list">
+        <label class="setting-row" for="set-fastwin">
+          <span class="setting-text">
+            <span class="setting-name">⚡ Vitória rápida</span>
+            <span class="setting-desc">A IA vence pelo caminho mais curto, em vez de arrastar partidas já decididas.</span>
+          </span>
+          <input type="checkbox" class="switch" id="set-fastwin" checked>
+        </label>
+
+        <div class="setting-row">
+          <span class="setting-text">
+            <span class="setting-name">🎨 Aparência</span>
+            <span class="setting-desc">Tema da interface. O tabuleiro mantém as cores de madeira nos dois modos.</span>
+          </span>
+          <div class="seg-control">
+            <button class="seg-btn" data-theme-opt="light" title="Modo claro">☀️</button>
+            <button class="seg-btn active" data-theme-opt="dark" title="Modo escuro">🌙</button>
+          </div>
+        </div>
+
+        <label class="setting-row" for="set-debug">
+          <span class="setting-text">
+            <span class="setting-name">🐞 Modo debug <span class="setting-tag">em breve</span></span>
+            <span class="setting-desc">Painel com a avaliação do minimax, nós visitados e lances considerados.</span>
+          </span>
+          <input type="checkbox" class="switch" id="set-debug">
+        </label>
+      </div>
+
+      <button class="btn-primary" id="btn-settings-close">Fechar</button>
+    </div>
+  </div>
+
   <!-- SETUP SCREEN -->
   <div id="screen-setup" class="screen">
     <div class="setup-wrapper">
@@ -308,6 +347,14 @@
       </div>
     </div>
   </div>
+
+  <!-- Floating settings button (bottom-right, all screens) -->
+  <button class="btn-settings-fab" data-open-settings title="Configurações" aria-label="Configurações">
+    <svg width="27" height="27" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <circle cx="12" cy="12" r="3"></circle>
+      <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.6a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"></path>
+    </svg>
+  </button>
 
   <script type="module" src="js/app.js"></script>
 </body>

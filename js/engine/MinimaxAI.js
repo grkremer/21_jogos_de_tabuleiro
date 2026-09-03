@@ -7,11 +7,13 @@ export class MinimaxAI {
    * @param {GameBase} game - the game instance
    * @param {number} maxDepth - search depth (difficulty)
    * @param {boolean} randomize - shuffle moves before evaluating (adds variety at shallow depths)
+   * @param {boolean} fastWin - discount decisive results by depth (see _leafScore)
    */
-  constructor(game, maxDepth, randomize = true) {
+  constructor(game, maxDepth, randomize = true, fastWin = true) {
     this.game = game;
     this.maxDepth = maxDepth;
     this.randomize = randomize;
+    this.fastWin = fastWin;
   }
 
   /**
@@ -48,7 +50,7 @@ export class MinimaxAI {
   _minimax(state, depth, alpha, beta, maximizing) {
     const result = this.game.checkResult(state);
     if (result.over || depth === 0) {
-      return this.game.evaluate(state);
+      return this._leafScore(state, result, depth);
     }
 
     const moves = this.game.getValidMoves(state);
@@ -72,6 +74,26 @@ export class MinimaxAI {
       }
       return best;
     }
+  }
+
+  /**
+   * Score of a leaf node.
+   *
+   * With fastWin off this is just evaluate(). With it on, a decisive result is
+   * pulled toward zero by the number of plies it took to reach, so among equally
+   * winning lines the AI plays the quickest mate, and among lost ones it plays
+   * the line that survives longest. Without this, every win is worth exactly
+   * ±1000 and the AI happily postpones a mate it already has — which, in the
+   * movement games, can run out the 120 half-move limit and draw.
+   *
+   * The discount is at most maxDepth (9), far below the ±1000 of a decisive
+   * result, so it never makes a win look worse than a heuristic score.
+   */
+  _leafScore(state, result, depth) {
+    const score = this.game.evaluate(state);
+    if (!this.fastWin || !result.over || score === 0) return score;
+    const plies = this.maxDepth - depth; // half-moves from the root to here
+    return score > 0 ? score - plies : score + plies;
   }
 
   _shuffle(arr) {

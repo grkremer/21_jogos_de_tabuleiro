@@ -1,6 +1,7 @@
 import { GAMES, BONUS_GAMES, CATEGORIES } from './games/registry.js';
 import { MinimaxAI, DIFFICULTY } from './engine/MinimaxAI.js';
 import { initStory, showStoryScreen, generateCode, markCompleted } from './story.js';
+import { initSettings, getSettings } from './settings.js';
 
 // ─── App State ────────────────────────────────────────────────
 const state = {
@@ -316,7 +317,7 @@ async function startGame() {
   // Configure players
   if (state.mode === 'ai') {
     const diff = DIFFICULTY[state.difficulty];
-    state.ai = new MinimaxAI(state.gameInstance, diff.depth, diff.randomize);
+    state.ai = new MinimaxAI(state.gameInstance, diff.depth, diff.randomize, getSettings().fastWin);
     if (!state.story.active) state.p2Name = `🤖 IA — ${diff.label}`;
   } else {
     state.ai = null;
@@ -506,6 +507,8 @@ function scheduleAIMove() {
 
   // Delay so browser paints before computation
   setTimeout(() => {
+    // Re-read so toggling "vitória rápida" mid-match takes effect immediately
+    state.ai.fastWin = getSettings().fastWin;
     const move = state.ai.getBestMove(state.gameState);
     state.isAIThinking = false;
     if (move !== null) applyMove(move);
@@ -582,6 +585,7 @@ function updateScoreDisplay() {
 
 // ─── EVENT LISTENERS ─────────────────────────────────────────
 document.addEventListener('DOMContentLoaded', () => {
+  initSettings();
   buildHomeScreen();
 
   // ── Story mode init ──

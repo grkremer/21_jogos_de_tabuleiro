@@ -21,6 +21,16 @@
   --p2-dark: #383838;
   --p2-glow: rgba(80,80,80,0.5);
 
+  /* Player accents in the UI chrome (avatars, dots, turn bars).
+     Kept apart from --p1/--p2 so the light theme can darken them
+     without touching the pieces drawn on the board. */
+  --p1-ui:   var(--p1);
+  --p2-ui:   var(--p2);
+  --p1-soft: rgba(200,200,200,0.10);
+  --p2-soft: rgba(90,90,90,0.18);
+  --p1-tint: rgba(200,200,200,0.05);
+  --p2-tint: rgba(80,80,80,0.08);
+
   --gold: #f5a623;
   --gold-glow: rgba(245,166,35,0.4);
 
@@ -39,6 +49,16 @@
   --accent-glow: rgba(124,58,237,0.3);
 
   --success: #22c55e;
+
+  /* Theme-dependent surfaces & depth */
+  --header-grad: linear-gradient(135deg, #0d0d1a 0%, #1a1027 50%, #0f1628 100%);
+  --header-glow: rgba(124,58,237,0.15);
+  --sheen:      rgba(255,255,255,0.02);
+  --overlay:    rgba(0,0,0,0.82);
+  --shadow-sm:  rgba(0,0,0,0.30);
+  --shadow-lg:  rgba(0,0,0,0.60);
+  --board-ring: rgba(255,255,255,0.05);
+
   --radius: 14px;
   --radius-sm: 8px;
   --radius-lg: 20px;
@@ -46,6 +66,46 @@
 
   --font: 'Inter', system-ui, -apple-system, sans-serif;
   --font-display: 'Cinzel', serif;
+}
+
+/* ── Light theme ──────────────────────────────────────────────
+   Only the tokens change. Board wood, piece gradients and the
+   vivid story-node gradients stay identical in both themes. */
+:root[data-theme="light"] {
+  --bg: #f3f3f8;
+  --bg2: #fafaff;
+  --surface: #ffffff;
+  --surface2: #ececf4;
+  --border: rgba(24,24,56,0.10);
+  --border-hover: rgba(24,24,56,0.24);
+
+  --p1-glow: rgba(120,124,150,0.30);
+  --p2-glow: rgba(50,50,70,0.28);
+  --p1-ui:   #8b8fa6;
+  --p2-ui:   #3a3a4a;
+  --p1-soft: rgba(120,124,150,0.16);
+  --p2-soft: rgba(50,50,70,0.12);
+  --p1-tint: rgba(120,124,150,0.08);
+  --p2-tint: rgba(50,50,70,0.06);
+
+  --gold: #b07407;
+  --gold-glow: rgba(176,116,7,0.22);
+
+  --text:  #1a1a2b;
+  --text2: #53536d;
+  --text3: #8585a0;
+
+  --accent: #6d28d9;
+  --accent2: #7c3aed;
+  --accent-glow: rgba(109,40,217,0.20);
+
+  --header-grad: linear-gradient(135deg, #ece7fd 0%, #e6ecfb 50%, #e2f1f7 100%);
+  --header-glow: rgba(124,58,237,0.10);
+  --sheen:      rgba(24,24,56,0.015);
+  --overlay:    rgba(26,26,43,0.55);
+  --shadow-sm:  rgba(30,30,60,0.10);
+  --shadow-lg:  rgba(30,30,60,0.18);
+  --board-ring: rgba(0,0,0,0.10);
 }
 
 html { scroll-behavior: smooth; }
@@ -78,7 +138,7 @@ body {
    HOME SCREEN — HEADER
    ============================================================ */
 .home-header {
-  background: linear-gradient(135deg, #0d0d1a 0%, #1a1027 50%, #0f1628 100%);
+  background: var(--header-grad);
   border-bottom: 1px solid var(--border);
   padding: 48px 24px 40px;
   position: relative;
@@ -89,7 +149,7 @@ body {
   content: '';
   position: absolute;
   inset: 0;
-  background: radial-gradient(ellipse 80% 60% at 50% 0%, rgba(124,58,237,0.15) 0%, transparent 70%);
+  background: radial-gradient(ellipse 80% 60% at 50% 0%, var(--header-glow) 0%, transparent 70%);
   pointer-events: none;
 }
 
@@ -229,14 +289,14 @@ body {
   content: '';
   position: absolute;
   inset: 0;
-  background: linear-gradient(135deg, rgba(255,255,255,0.02) 0%, transparent 60%);
+  background: linear-gradient(135deg, var(--sheen) 0%, transparent 60%);
   pointer-events: none;
 }
 
 .game-card:not(.coming-soon):hover {
   transform: translateY(-3px);
   border-color: var(--accent);
-  box-shadow: 0 8px 32px rgba(0,0,0,0.3), 0 0 0 1px var(--accent), 0 0 24px var(--accent-glow);
+  box-shadow: 0 8px 32px var(--shadow-sm), 0 0 0 1px var(--accent), 0 0 24px var(--accent-glow);
   background: var(--surface2);
 }
 
@@ -308,7 +368,7 @@ body {
   width: 52px;
   height: 52px;
   border-radius: 6px;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.3);
+  box-shadow: 0 2px 8px var(--shadow-sm);
 }
 
 .game-card-name {
@@ -597,8 +657,8 @@ body {
   border-radius: 50%;
   display: block;
 }
-.p1-dot { background: var(--p1); box-shadow: 0 0 8px var(--p1-glow); }
-.p2-dot { background: var(--p2); box-shadow: 0 0 8px var(--p2-glow); }
+.p1-dot { background: var(--p1-ui); box-shadow: 0 0 8px var(--p1-glow); }
+.p2-dot { background: var(--p2-ui); box-shadow: 0 0 8px var(--p2-glow); }
 
 .btn-start {
   width: 100%;
@@ -674,7 +734,7 @@ body {
   content: '';
   position: absolute;
   inset: 0;
-  background: linear-gradient(135deg, rgba(255,255,255,0.02) 0%, transparent 60%);
+  background: linear-gradient(135deg, var(--sheen) 0%, transparent 60%);
   pointer-events: none;
 }
 
@@ -683,15 +743,15 @@ body {
 }
 
 .player-card#player1-card.active-turn {
-  border-color: var(--p1);
-  box-shadow: 0 0 20px var(--p1-glow), 0 0 0 1px var(--p1);
-  background: rgba(200,200,200,0.05);
+  border-color: var(--p1-ui);
+  box-shadow: 0 0 20px var(--p1-glow), 0 0 0 1px var(--p1-ui);
+  background: var(--p1-tint);
 }
 
 .player-card#player2-card.active-turn {
-  border-color: var(--p2);
-  box-shadow: 0 0 20px var(--p2-glow), 0 0 0 1px var(--p2);
-  background: rgba(80,80,80,0.08);
+  border-color: var(--p2-ui);
+  box-shadow: 0 0 20px var(--p2-glow), 0 0 0 1px var(--p2-ui);
+  background: var(--p2-tint);
 }
 
 .player-card.right { flex-direction: row-reverse; }
@@ -706,8 +766,8 @@ body {
   flex-shrink: 0;
 }
 
-.p1-avatar { background: rgba(200,200,200,0.1); color: var(--p1); }
-.p2-avatar { background: rgba(90,90,90,0.18); color: var(--p2); }
+.p1-avatar { background: var(--p1-soft); color: var(--p1-ui); }
+.p2-avatar { background: var(--p2-soft); color: var(--p2-ui); }
 
 .player-info { display: flex; flex-direction: column; gap: 2px; }
 .player-info.right { align-items: flex-end; }
@@ -732,12 +792,12 @@ body {
   height: 3px;
   border-radius: 0 0 0 var(--radius);
   transition: width 0.4s ease;
-  background: var(--p1);
+  background: var(--p1-ui);
 }
 
 .turn-indicator.right {
   left: auto; right: 0;
-  background: var(--p2);
+  background: var(--p2-ui);
   border-radius: 0 0 var(--radius) 0;
 }
 
@@ -804,9 +864,9 @@ body {
   height: min(360px, calc(100vw - 48px));
   border-radius: 20px;
   box-shadow:
-    0 0 0 1px rgba(255,255,255,0.05),
-    0 20px 60px rgba(0,0,0,0.6),
-    0 8px 20px rgba(0,0,0,0.4);
+    0 0 0 1px var(--board-ring),
+    0 20px 60px var(--shadow-lg),
+    0 8px 20px var(--shadow-sm);
   cursor: default;
   user-select: none;
 }
@@ -865,7 +925,7 @@ body {
 .win-overlay {
   position: fixed;
   inset: 0;
-  background: rgba(0,0,0,0.8);
+  background: var(--overlay);
   backdrop-filter: blur(12px);
   -webkit-backdrop-filter: blur(12px);
   display: flex;
@@ -1179,7 +1239,7 @@ body {
 
 .node-locked {
   background: var(--surface2);
-  border-color: rgba(255,255,255,0.06);
+  border-color: var(--border);
   color: var(--text3);
   cursor: not-allowed;
   opacity: 0.7;
@@ -1233,7 +1293,7 @@ body {
   display: flex;
   align-items: center;
   justify-content: center;
-  box-shadow: 0 2px 6px rgba(0,0,0,0.4);
+  box-shadow: 0 2px 6px var(--shadow-sm);
 }
 
 .star-outline {
@@ -1294,7 +1354,7 @@ body {
 .modal-overlay {
   position: fixed;
   inset: 0;
-  background: rgba(0,0,0,0.82);
+  background: var(--overlay);
   backdrop-filter: blur(12px);
   -webkit-backdrop-filter: blur(12px);
   display: flex;
@@ -1601,6 +1661,182 @@ body {
 }
 
 /* ============================================================
+   SETTINGS
+   ============================================================ */
+/* Floating gear, bottom-right, present on every screen.
+   z-index sits below the win overlay (100) and the modals (200). */
+.btn-settings-fab {
+  position: fixed;
+  right: 22px;
+  bottom: 22px;
+  z-index: 90;
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(135deg, var(--accent), var(--accent2));
+  border: none;
+  color: #fff;
+  cursor: pointer;
+  box-shadow: 0 8px 26px var(--accent-glow), 0 4px 14px var(--shadow-lg);
+  transition: var(--transition);
+}
+
+.btn-settings-fab:hover {
+  transform: rotate(60deg) scale(1.07);
+  box-shadow: 0 10px 34px var(--accent-glow), 0 6px 18px var(--shadow-lg);
+}
+
+.btn-settings-fab:focus-visible {
+  outline: 2px solid var(--accent2);
+  outline-offset: 3px;
+}
+
+.modal-settings-card {
+  max-width: 440px;
+  text-align: left;
+}
+
+.modal-settings-card .modal-icon,
+.modal-settings-card .modal-title { text-align: center; }
+
+.modal-settings-card .btn-primary { width: 100%; }
+
+.settings-list {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin: 18px 0 22px;
+}
+
+.setting-row {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 14px;
+  background: var(--bg2);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  transition: var(--transition);
+}
+
+label.setting-row { cursor: pointer; }
+.setting-row:hover { border-color: var(--border-hover); }
+
+.setting-text {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  flex: 1;
+  min-width: 0;
+}
+
+.setting-name {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--text);
+}
+
+.setting-desc {
+  font-size: 12px;
+  color: var(--text3);
+  line-height: 1.5;
+}
+
+.setting-tag {
+  font-size: 9px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.6px;
+  color: var(--gold);
+  border: 1px solid var(--gold);
+  border-radius: 100px;
+  padding: 2px 7px;
+}
+
+/* Toggle switch */
+.switch {
+  appearance: none;
+  -webkit-appearance: none;
+  flex-shrink: 0;
+  position: relative;
+  width: 46px;
+  height: 26px;
+  margin: 0;
+  border: 1px solid var(--border-hover);
+  border-radius: 100px;
+  background: var(--surface2);
+  cursor: pointer;
+  transition: var(--transition);
+}
+
+.switch::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 3px;
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  background: var(--text3);
+  transform: translateY(-50%);
+  transition: var(--transition);
+}
+
+.switch:checked {
+  background: linear-gradient(135deg, var(--accent), var(--accent2));
+  border-color: transparent;
+  box-shadow: 0 0 14px var(--accent-glow);
+}
+
+.switch:checked::after {
+  left: 23px;
+  background: #fff;
+}
+
+.switch:focus-visible {
+  outline: 2px solid var(--accent2);
+  outline-offset: 2px;
+}
+
+/* Segmented control (light / dark) */
+.seg-control {
+  display: flex;
+  gap: 4px;
+  flex-shrink: 0;
+  padding: 3px;
+  background: var(--surface2);
+  border: 1px solid var(--border);
+  border-radius: 100px;
+}
+
+.seg-btn {
+  border: none;
+  background: none;
+  font-family: var(--font);
+  font-size: 15px;
+  line-height: 1;
+  padding: 7px 11px;
+  border-radius: 100px;
+  cursor: pointer;
+  filter: grayscale(1) opacity(0.5);
+  transition: var(--transition);
+}
+
+.seg-btn:hover { filter: grayscale(0.3) opacity(0.85); }
+
+.seg-btn.active {
+  filter: none;
+  background: var(--accent-glow);
+  box-shadow: inset 0 0 0 1px var(--accent2);
+}
+
+/* ============================================================
    RESPONSIVE — story
    ============================================================ */
 @media (max-width: 600px) {
@@ -1613,6 +1849,8 @@ body {
   .item-left  { padding-left: 20px; }
   .item-right { padding-right: 20px; }
   .story-connector { height: 36px; }
+  .btn-settings-fab { right: 16px; bottom: 16px; width: 54px; height: 54px; }
+  .setting-desc { display: none; }
 }
 
 /* scrollbar */
